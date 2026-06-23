@@ -1,0 +1,235 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        calm: {
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+          600: '#0284c7',
+          700: '#0369a1',
+        },
+        wellness: {
+          50: '#ecfdf5',
+          100: '#d1fae5',
+          200: '#a7f3d0',
+          300: '#6ee7b7',
+          400: '#34d399',
+          500: '#10b981',
+        },
+        warmth: {
+          50: '#fffbeb',
+          100: '#fef3c7',
+          200: '#fde68a',
+          300: '#fcd34d',
+          400: '#fbbf24',
+          500: '#f59e0b',
+        },
+        stress: {
+          50: '#fef2f2',
+          100: '#fee2e2',
+          200: '#fecaca',
+          300: '#fca5a5',
+          400: '#f87171',
+          500: '#ef4444',
+        }
+      },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'pulse-soft': 'pulse-soft 2s ease-in-out infinite',
+        'gradient': 'gradient 8s ease infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        'pulse-soft': {
+          '0%, 100%': { opacity: 1 },
+          '50%': { opacity: 0.7 },
+        },
+        gradient: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+      },
+    },
+  },
+  plugins: [],
+};
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.tsx';
+import './index.css';
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+ export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+{
+  "name": "vite-react-typescript-starter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.4",
+    "lucide-react": "^0.344.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.18",
+    "eslint": "^9.9.1",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.11",
+    "globals": "^15.9.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.3.0",
+    "vite": "^5.4.2"
+  }
+}
+{
+  "name": "vite-react-typescript-starter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.4",
+    "lucide-react": "^0.344.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.18",
+    "eslint": "^9.9.1",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.11",
+    "globals": "^15.9.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.3.0",
+    "vite": "^5.4.2"
+  }
+}
+import { useState } from "react";
+
+export default function App() {
+  const [msg, setMsg] = useState("");
+  const [mood, setMood] = useState("");
+  const [chat, setChat] = useState<string[]>([]);
+
+  const sendMessage = () => {
+    if (!msg) return;
+
+    let reply = "MindBuddy: Stay positive and take care of yourself.";
+
+    if (msg.toLowerCase().includes("stress"))
+      reply = "MindBuddy: Take deep breaths and relax for 5 minutes.";
+
+    if (msg.toLowerCase().includes("sad"))
+      reply = "MindBuddy: Talk to someone you trust and stay hopeful.";
+
+    setChat([...chat, "You: " + msg, reply]);
+    setMsg("");
+  };
+
+  return (
+    <div className="min-h-screen bg-calm-50 p-4">
+      <h1 className="text-4xl font-bold text-center text-calm-700 mb-6">
+        MindBuddy
+      </h1>
+
+      <div className="bg-white p-4 rounded-xl shadow mb-4">
+        <h2 className="font-bold text-wellness-500">Mood Tracker</h2>
+
+        <select
+          className="border p-2 w-full mt-2"
+          onChange={(e) => setMood(e.target.value)}
+        >
+          <option>Select Mood</option>
+          <option>😊 Happy</option>
+          <option>😔 Sad</option>
+          <option>😟 Stressed</option>
+        </select>
+
+        <p className="mt-2">Current Mood: {mood}</p>
+      </div>
+
+      <div className="bg-white p-4 rounded-xl shadow mb-4">
+        <h2 className="font-bold text-stress-500">
+          Stress Relief Tips
+        </h2>
+
+        <ul className="list-disc ml-5 mt-2">
+          <li>Take deep breaths</li>
+          <li>Drink enough water</li>
+          <li>Listen to relaxing music</li>
+          <li>Go for a short walk</li>
+        </ul>
+      </div>
+
+      <div className="bg-white p-4 rounded-xl shadow">
+        <h2 className="font-bold text-calm-600 mb-2">
+          AI Chatbot
+        </h2>
+
+        <div className="border h-40 overflow-y-auto p-2 mb-2">
+          {chat.map((c, i) => (
+            <p key={i}>{c}</p>
+          ))}
+        </div>
+
+        <input
+          className="border p-2 w-full mb-2"
+          placeholder="Type your message..."
+          value={msg}
+          onChange={(e) => setMsg(e.target.value)}
+        />
+
+        <button
+          onClick={sendMessage}
+          className="bg-calm-500 text-white px-4 py-2 rounded w-full"
+        >
+          Send
+        </button>
+      </div>
+    </div>
+  );
+}
